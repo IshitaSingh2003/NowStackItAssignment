@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        background-color: #fff; /* White background */
+        color: #00ff00; /* Light green text color */
+        font-family: Arial, sans-serif;
+      }
+
+      .container {
+        margin: 20px;
+      }
+
+      h1 {
+        color: #00ff00; /* Light green heading color */
+      }
+
+      form {
+        margin-bottom: 20px;
+      }
+
+      label {
+        display: block;
+        margin-top: 10px;
+        color: #00ff00; /* Light green label text color */
+      }
+
+      input[type="text"],
+      input[type="file"],
+      input[type="checkbox"] {
+        width: 100%;
+        padding: 5px;
+        margin-top: 5px;
+      }
+
+      input[type="submit"] {
+        background-color: #00ff00; /* Light green button background */
+        color: #000; /* Black button text color */
+        padding: 10px 20px;
+        border: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CSV Import App</h1>
+      <form id="csvForm">
+        <label for="csvFile">Select CSV File:</label>
+        <input type="file" id="csvFile" accept=".csv" required><br>
+
+        <label for="columns">Select Columns to Import (comma-separated):</label>
+        <input type="text" id="columns" required><br>
+
+        <label for="filterColumn">Filter Column:</label>
+        <input type="text" id="filterColumn" required><br>
+
+        <label for="filterValue">Filter Value:</label>
+        <input type="text" id="filterValue" required><br>
+
+        <label for="appendData">Append Data:</label>
+        <input type="checkbox" id="appendData"><br>
+
+        <label for="sheetName">Sheet Name:</label>
+        <input type="text" id="sheetName" required><br>
+
+        <input type="submit" value="Import Data">
+      </form>
+
+      <div id="result"></div>
+    </div>
+
+    <script>
+      document.getElementById('csvForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        var csvFile = document.getElementById('csvFile').files[0];
+        var columns = document.getElementById('columns').value.split(',').map(item => item.trim());
+        var filterColumn = document.getElementById('filterColumn').value.trim();
+        var filterValue = document.getElementById('filterValue').value.trim();
+        var appendData = document.getElementById('appendData').checked;
+        var sheetName = document.getElementById('sheetName').value.trim();
+        
+        if (!csvFile) {
+          alert('Please select a CSV file.');
+          return;
+        }
+        
+        var reader = new FileReader();
+        reader.onload = function(event) {
+          var csvData = event.target.result;
+          google.script.run.withSuccessHandler(function(response) {
+            document.getElementById('result').textContent = response;
+          }).importCSVData(csvData, columns, filterColumn, filterValue, appendData, sheetName);
+        };
+        reader.readAsText(csvFile);
+      });
+    </script>
+  </body>
+</html>
