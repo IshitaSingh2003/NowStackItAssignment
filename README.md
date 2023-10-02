@@ -93,7 +93,7 @@ Here's a concise breakdown of the approach I ultimately followed:
    - Filter Column Missing: I handled situations where the filter column wasn't found in the CSV.
    - Empty CSV Files: The app now gracefully manages scenarios with empty CSV files.
   
-##Working Video🎥
+## Working Video🎥
 
 https://github.com/StackItHQ/stackit-hiring-assignment-IshitaSingh2003/assets/80634214/7c75f542-4d8d-4ceb-a90d-59a9d0395050
 
@@ -104,5 +104,4 @@ This journey was a learning experience, starting with uncertainty but evolving i
 
 If you have any feedback, I would be glad to know it. 
 
-Link to web App: https://script.google.com/macros/s/AKfycby3YGK9PlLzWeJSuAXgOzvtM_552lXJEW3hfpgjpQ/dev
 
